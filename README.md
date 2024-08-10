@@ -47,13 +47,25 @@ The setup involves the following components:
    ```bash
    vim NodeJS-sample-app/terraform_files/variables.tf
    ```
+3. **Modify `userdata.sh`**
 
-3. **Create a Jenkins Pipeline**
+   Edit the `userdata.sh` script to include your specific credentials and configurations:
+
+   ```bash
+   vim NodeJS-sample-app/terraform_files/userdata.sh
+   ```
+   - **Datadog API Key**: Replace `your_datadog_api_key`.
+   - **Docker Credentials**: Add your Docker username (`your_docker_username`) and password (`your_docker_password`).
+   - **AWS CLI**: Update `your_aws_access_key` and `your_aws_secret_key` for AWS configuration.
+   - **ECR Registry ID**: Replace `your_ecr_registry_id` for image operations.
+
+
+4. **Create a Jenkins Pipeline**
 
    - Copy the pipeline script from the `jenkins-pipeline` subdirectory of the downloaded repository.
    - Save the workspace.
 
-4. **Define Permissions for Jenkins**
+5. **Define Permissions for Jenkins**
 
    - Edit the sudoers file:
 
@@ -67,7 +79,7 @@ The setup involves the following components:
      jenkins ALL=(ALL) NOPASSWD: /usr/bin/terraform
      ```
 
-5. **Place Terraform Files for Execution**
+6. **Place Terraform Files for Execution**
 
    - Copy the Terraform files to the Jenkins workspace:
 
@@ -75,13 +87,13 @@ The setup involves the following components:
      cp -r NodeJS-sample-app/jenkins-pipeline/* /var/lib/jenkins/workspaces/pipeline_name/
      ```
 
-6. **Build the Jenkins Pipeline**
+7. **Build the Jenkins Pipeline**
 
    - Click **Build Now** in the pipeline created.
    - Check the console output to verify the pipeline is working correctly.
    - Wait for the workflow to complete successfully. Resources will be created, and the EC2 instance will run the user data script to deploy the Node.js application.
 
-7. **Verify the Deployment**
+8. **Verify the Deployment**
 
    Browse to the public IP of the EC2 instance with port `3000`:
 
